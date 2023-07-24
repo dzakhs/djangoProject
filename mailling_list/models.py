@@ -17,7 +17,7 @@ class Client(models.Model):
 
 
 
-class Mailing_list(models.Model):
+class Mailling_list(models.Model):
     FREQUENCY_CHOICES = (
         ('daily', 'ежедневно'),
         ('weekly', 'еженедельно'),
@@ -34,7 +34,7 @@ class Mailing_list(models.Model):
     mailing_time = models.TimeField(auto_now=True, verbose_name='время рассылки')
     frequency = models.CharField(max_length=15, choices=FREQUENCY_CHOICES, verbose_name='периодичность рассылки')
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='created', verbose_name='статус рассылки')
-    client = models.ManyToManyField('Client', on_delete=models.CASCADE, verbose_name='клиенты')
+    client = models.ManyToManyField(Client, verbose_name='клиенты')
 
     class Meta:
         verbose_name = 'Рассылка'
@@ -46,7 +46,7 @@ class Message(models.Model):
 
         subject = models.CharField(max_length=150, verbose_name='тема письма')
         body = models.TextField(verbose_name='тело письма')
-        mailling_list = models.ForeignKey(Mailing_list, on_delete=models.CASCADE, verbose_name='настройки расслыки')
+        mailling_list = models.ForeignKey(Mailling_list, on_delete=models.CASCADE, verbose_name='настройки рассылки')
 
 
         def __str__(self):
@@ -65,7 +65,7 @@ class MailingLogs(models.Model):
         ('error', 'ошибка'),
     )
 
-    attempt_time = models.DateField(auto_now=True, verbose_name='дата и время последней попытки')
+    attempt_time = models.DateField(auto_now=True, verbose_name='дата последней попытки')
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, verbose_name='статус попытки')
     responce = models.TextField(verbose_name='ответ почтового сервера', **NULLABLE)
-    mailing_list = models.ForeignKey(Mailing_list, on_delete=models.CASCADE, verbose_name='Письмо для рассылки')
+    mailling_list = models.ForeignKey(Mailling_list, on_delete=models.CASCADE, verbose_name='Письмо для рассылки')
