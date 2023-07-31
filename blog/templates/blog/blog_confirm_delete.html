@@ -1,0 +1,19 @@
+<{% extends 'mailling_list/base.html' %}
+
+{% block content %}
+<div class="col">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Удаление блога</h5>
+      <form method="post">
+        {% csrf_token %}
+        Подтвердите удаление блога"{{ object.title }}"<br>
+        <input type="submit" class="btn btn-outline-danger" value="Подтверждаю">
+      </form>
+      <div class="card-footer">
+        <a href="{% url 'blog:blogs' %}" class="btn btn-primary"><< Назад</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

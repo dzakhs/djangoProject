@@ -4,5 +4,24 @@
 {% block content %}
     <h1> <center>Главная страница</center>  </h1>
     <h3> <center> Добро пожаловать!</center> </h3>
-
+     <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h5 class="card-title text-muted text-center font-weight-bold">Всего рассылок</h5>
+                <p class="text-center">{{ mailling_list_count }}</p>
+            </div>
+            <div class="col-sm-4">
+                <h5 class="card-title text-muted text-center font-weight-bold">Действующие рассылки</h5>
+                <p class="text-center">{{ mailling_list_count_active }}</p>
+            </div>
+            <div class="col-sm-4">
+                <h5 class="card-title text-muted text-center font-weight-bold">Наши уникальные клиенты</h5>
+                <p class="text-center">{{ unique_clients_count}}</p>
+            </div>
+            <div class="col-sm-4">
+                <h5 class="card-title text-muted text-center font-weight-bold">Наши публикации</h5>
+                <p class="text-center">{{ blog }}</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,21 +1,41 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.db.models import Count
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
+from blog.models import Blog
 from mailling_list.forms import MaillingForm, MessageForm
-from mailling_list.models import Mailling_list, Message, MailingLogs
+from mailling_list.models import Mailling_list, Message, MailingLogs, Client
 
 
 class IndexListView(ListView):
     model = Mailling_list
     template_name = 'mailling_list/index.html'
 
+    def get(self, request, *args, **kwargs):
+        mailling_list_count = Mailling_list.objects.count()
+        mailling_list_count_active = Mailling_list.objects.filter(status='started').count()
+        blogs = list(Blog.objects.order_by('?').values_list('title', flat=True)[:3])
+        unique_clients_count = Client.objects.annotate(mailling_num=Count('mailling_list')).filter(mailling_num__gt=0).count()
+
+        context = {
+            'title': "Главная",
+            'mailling_list_count': mailling_list_count,
+            'mailling_list_count_active': mailling_list_count_active,
+            'unique_clients_count': unique_clients_count,
+            'blogs': blogs
+        }
+
+        return render(request, 'mailling_list/index.html', context)
+
 
 class MaillingListView(ListView):
     model = Mailling_list
     template_name = 'mailling_list/mailling.html'
+
+
 
 
 class MaillingCreateView(CreateView):
