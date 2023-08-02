@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
@@ -7,6 +8,7 @@ class Client(models.Model):
     email = models.EmailField(unique=True, verbose_name='email')
     full_name = models.CharField(max_length=255, verbose_name='ФИО')
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='владелец')
 
     def __str__(self):
         return f'{self.email}'
@@ -35,6 +37,7 @@ class Mailling_list(models.Model):
     frequency = models.CharField(max_length=15, choices=FREQUENCY_CHOICES, verbose_name='периодичность рассылки')
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='created', verbose_name='статус рассылки')
     client = models.ManyToManyField(Client, verbose_name='клиенты')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='владелец')
 
     class Meta:
         verbose_name = 'Рассылка'
