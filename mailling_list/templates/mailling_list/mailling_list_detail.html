@@ -3,10 +3,19 @@
 {% load mytags %}
 {% block content %}
 
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
- {% endblock %}
+    <div class="row">
+        <div class="col-md-4">
+            <h2>{{ mailling_list.status }}</h2>
+            <p>class="card-text">{{ mailling_list.client }} </p>
+            <p>class="card-text">{{ mailling_list.owner }} </p>
+            <p>class="card-text">{{ mailling_list.frequency }} </p>
+            <p>class="card-text">{{ mailling_list.mailing_time }} </p>
+            <p><a class="btn btn-secondary" href="{% url 'mailling_list:mailling_detail' pk=mailling.id %}"
+                  role="button">Подробнее &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="{% url 'mailling_list:mailling_update' mailling.id %}" role="button">Изменить
+                &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="{% url 'mailling_list:mailling_delete' mailling.id %}" role="button">Удалить
+                &raquo;</a></p>
+        </div>
+    </div>
+{% endblock %}
