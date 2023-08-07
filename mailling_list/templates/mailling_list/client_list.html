@@ -1,0 +1,30 @@
+{% extends 'mailling_list/base.html' %}
+{% load static %}
+{% load mytags %}
+{% block content %}
+    {% if user.is_authenticated %}
+    <div class="button">
+        <p><a class="btn btn-secondary" href="{% url 'mailling_list:client_create' %}" role="button">Добавить клиента &raquo;</a></p>
+    {% else %}
+    <div class="button">
+        <p><a class="btn disabled" href="{% url 'mailling_list:client_create' %}" role="button">Собавить клиента &raquo;</a></p>
+   <div class="container">
+    {% endif %}
+        <div class="row">
+            {% for client in client_list %}
+              <div class="col-md-4">
+                <h2>{{ client.full_name }}</h2>
+                <p class="card-text">{{ client.email}} </p>
+                <p><a class="btn btn-secondary" href="{% url 'mailling_list:client_detail' pk=client.id %}" role="button">Подробнее &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="{% url 'mailling_list:client_update' client.id %}" role="button">Изменить &raquo;</a></p>
+                <p><a class="btn btn-secondary" href="{% url 'mailling_list:client_delete' client.id %}" role="button">Удалить &raquo;</a></p>
+              </div>
+              <div class="col-md-4">
+            {% endfor %}
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+    </div>
+{% endblock %}

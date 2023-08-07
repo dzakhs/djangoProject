@@ -1,0 +1,19 @@
+{% extends 'mailling_list/base.html' %}
+
+{% block content %}
+<div class="col">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Удаление клиента </h5>
+      <form method="post">
+        {% csrf_token %}
+        Подтвердите удаление клиента"#"<br>
+        <input type="submit" class="btn btn-outline-danger" value="Подтверждаю">
+      </form>
+      <div class="card-footer">
+        <a href="{% url 'mailling_list:clients' %}" class="btn btn-primary"><< Назад</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

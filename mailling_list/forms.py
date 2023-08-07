@@ -1,6 +1,6 @@
 from django import forms
 
-from mailling_list.models import Mailling_list, Message
+from mailling_list.models import Mailling_list, Message, Client
 
 
 class MaillingForm(forms.ModelForm):
@@ -22,6 +22,20 @@ class MessageForm(forms.ModelForm):
         fields = ('subject', 'body', )
 
     def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+
+
+class ClientForm(forms.ModelForm):
+
+   class Meta:
+         model = Client
+         fields = '__all__'
+
+
+   def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
