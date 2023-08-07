@@ -6,9 +6,9 @@
     <div class="row">
         <div class="col-md-4">
             <h2>{{ client.full_name }}</h2>
-            <p>class="card-text">{{ client.email }} </p>
-            <p>class="card-text">{{ client.owner }} </p>
-            <p>class="card-text">{{ client.comment }} </p>
+            <p class="card-text">{{ client.email }} </p>
+            <p class="card-text">{{ client.owner }} </p>
+            <p class="card-text">{{ client.comment }} </p>
 
             <p><a class="btn btn-secondary" href="{% url 'mailling_list:client_detail' pk=client.id %}"
                   role="button">Подробнее &raquo;</a></p>

@@ -3,8 +3,13 @@ import time
 from django.core.management.base import BaseCommand
 import schedule
 
+from mailling_list.models import Client
+
+
 def test_schedule():
     print('Старт рассылки')
+
+
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
